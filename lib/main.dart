@@ -7,7 +7,11 @@ import 'package:ohrana_truda/res/widgets/BodyContainer.dart';
 import 'package:ohrana_truda/res/widgets/CustomButton.dart';
 import 'package:ohrana_truda/res/widgets/CustomTextField.dart';
 
-void main() {
+import 'depen_inject/location.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureDependencies();
   runApp(const MyApp());
 }
 
