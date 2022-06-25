@@ -19,9 +19,42 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class RegistrationScreen extends StatelessWidget {
+  const RegistrationScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Flex(
+      direction: Axis.horizontal,
+      children: [
+        Flexible(
+            child: Container(
+                color: backgroundBlue,
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius:
+                          BorderRadius.only(topRight: Radius.circular(300))),
+                  child: Center(),
+                ))),
+        Flexible(
+            child: Container(
+          color: Colors.white,
+          child: Container(
+            decoration: BoxDecoration(
+                color: Colors.white60,
+                borderRadius:
+                    BorderRadius.only(bottomLeft: Radius.circular(300))),
+          ),
+        ))
+      ],
+    ));
+  }
+}
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
-
 
   final String title;
 
