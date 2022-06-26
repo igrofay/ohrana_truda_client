@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ohrana_truda/domain/repository/profile.dart';
 import 'package:ohrana_truda/res/theme/consts.dart';
 import 'package:ohrana_truda/res/widgets/BodyContainer.dart';
 import 'package:ohrana_truda/res/widgets/CustomAppBar.dart';
@@ -13,6 +14,7 @@ import 'package:ohrana_truda/res/widgets/utils.dart';
 import 'nav.dart';
 
 class MainScreen extends StatelessWidget {
+
   const MainScreen({Key? key}) : super(key: key);
 
   @override
