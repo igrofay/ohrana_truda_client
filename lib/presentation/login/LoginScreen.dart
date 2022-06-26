@@ -2,14 +2,18 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ohrana_truda/depen_inject/location.dart';
 import 'package:ohrana_truda/presentation/polzovatel/polzScreen.dart';
 import 'package:ohrana_truda/res/theme/colors.dart';
 import 'package:ohrana_truda/res/theme/consts.dart';
 import 'package:ohrana_truda/res/widgets/CustomButton.dart';
 import 'package:ohrana_truda/res/widgets/CustomTextField.dart';
 
+import '../../domain/store/session/authorize.dart';
+
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  final AuthorizeStore store = getIt.get();
+  LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -63,17 +67,19 @@ class LoginScreen extends StatelessWidget {
                 hintText: 'Почта/ИНН',
                 height: 50,
                 bottomMargin: kDefaultPadding / 2,
+                onChanged: store.setInnOrEmail,
               ),
               CustomTextField(
                 hintText: 'Пароль',
                 height: 50,
                 bottomMargin: kDefaultPadding / 2,
+                  onChanged: store.setPassword
               ),
               const SizedBox(height: 12),
               CustomButton(
                 'Логин',
                 color: Colors.white,
-                onTap: () {},
+                onTap: store.requestAuthSession,
               )
             ],
           ),

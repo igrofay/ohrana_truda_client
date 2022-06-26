@@ -66,20 +66,24 @@ class RegistrationScreen extends StatelessWidget {
                 hintText: 'ИНН',
                 height: 50,
                 bottomMargin: kDefaultPadding / 2,
+                onChanged: store.setINN,
               ),
               CustomTextField(
-                hintText: 'Логин',
+                hintText: 'Почта',
                 height: 50,
                 bottomMargin: kDefaultPadding / 2,
+                onChanged: store.setEmail,
               ),
               CustomTextField(
                 hintText: 'Пароль',
                 height: 50,
                 bottomMargin: kDefaultPadding / 2,
+                onChanged: store.setPassword,
               ),
               CustomButton(
                 'Зарегистрироваться',
                 color: Colors.white,
+                onTap: store.requestRegSession,
               )
             ],
           ),

@@ -1,4 +1,5 @@
 
+import 'package:injectable/injectable.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../repository/authentication.dart';
@@ -9,6 +10,7 @@ import '../app/core_app.dart';
 
 part 'authorize.g.dart';
 
+@injectable
 class AuthorizeStore = _AuthorizeStore with _$AuthorizeStore;
 
 abstract class _AuthorizeStore with Store{
