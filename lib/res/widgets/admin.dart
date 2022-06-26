@@ -140,7 +140,7 @@ class Zayavka extends StatelessWidget {
     switch (state) {
       case PasportState.moderate:
         return yellow.withAlpha(50);
-      case PasportState.sucsess:
+      case PasportState.success:
         return Colors.greenAccent.withAlpha(50);
       case PasportState.rejected:
         return Colors.red.withAlpha(50);
@@ -156,7 +156,7 @@ class Zayavka extends StatelessWidget {
           'На модерации',
           style: TextStyle(color: yellow),
         );
-      case PasportState.sucsess:
+      case PasportState.success:
         return Text(
           'На модерации',
           style: TextStyle(color: Colors.greenAccent),

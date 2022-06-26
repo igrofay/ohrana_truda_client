@@ -43,12 +43,13 @@ class CustomTextField extends StatelessWidget {
       child: Center(
         child: TextFormField(
           onChanged: onChanged,
+          autofocus: true,
           textInputAction: TextInputAction.newline,
           onFieldSubmitted: onFieldSubmitted,
           onEditingComplete: onEditingComplete,
           textAlign: TextAlign.center,
           minLines: 1,
-          maxLines: 3,
+          maxLines: 1000,
           style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w400,
@@ -58,8 +59,8 @@ class CustomTextField extends StatelessWidget {
               border: InputBorder.none,
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              contentPadding: const EdgeInsets.symmetric(
+                  vertical: kDefaultPadding, horizontal: kDefaultPadding),
               hintText: hintText,
               hintMaxLines: 1,
               hintStyle: const TextStyle(

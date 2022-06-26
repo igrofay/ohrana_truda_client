@@ -26,20 +26,42 @@ const rightDemoData = [
 ];
 
 final zayavkaDemoData = [
-  Zayavka('7866758', '12.23.43', "ООО \'Акбулак\'", PasportState.rejected),
-  Zayavka('4365465', '44.23.43', "ООО \'Аватар\'", PasportState.moderate),
-  Zayavka('7656765', '32.45.21', "ООО \'Хиросима\'", PasportState.moderate),
-  Zayavka('2452355', '32.21.12', "ООО \'Кукундрия\'", PasportState.sucsess),
+  Zayavka('7866758', '12.23.43', "ООО 'Акбулак'", PasportState.rejected),
+  Zayavka('4365465', '44.23.43', "ООО 'Аватар'", PasportState.moderate),
+  Zayavka('7656765', '32.45.21', "ООО 'Хиросима'", PasportState.moderate),
+  Zayavka('2452355', '32.21.12', "ООО 'Кукундрия'", PasportState.success),
 ];
 
 final zolotoDemoData = [
-  Zayavka('6756767', '12.98.00', "ООО \'Карашганда\'", PasportState.sucsess),
-  Zayavka('3543455', '21.43.55', "ООО \'Арива\'", PasportState.moderate),
-  Zayavka('7567645', '43.45.34', "ООО \'Нагасаки\'", PasportState.sucsess),
-  Zayavka('2342354', '12.21.22', "ООО \'Кувандык\'", PasportState.moderate),
+  Zayavka('6756767', '12.98.00', "ООО 'Карашганда'", PasportState.success),
+  Zayavka('3543455', '21.43.55', "ООО 'Арива'", PasportState.moderate),
+  Zayavka('7567645', '43.45.34', "ООО 'Нагасаки'", PasportState.success),
+  Zayavka('2342354', '12.21.22', "ООО 'Кувандык'", PasportState.moderate),
 ];
 
-enum PasportState { sucsess, moderate, rejected }
+const nav = [
+  'Общее',
+  'СОУТ',
+  'Профсписки',
+  'Условия ',
+  'Травматизм',
+  'Данные',
+  'Обучение',
+  'Кол-ный догвор'
+];
+final navPosition = Observable(1);
+
+void changeNavPosition(int pos) {
+  final con = ActionController(name: "navPos");
+  final info = con.startAction(name: "navPos.changeStateMS");
+  try {
+    navPosition.value = pos;
+  } finally {
+    con.endAction(info);
+  }
+}
+
+enum PasportState { success, moderate, rejected }
 
 final StateMS = Observable(true);
 
