@@ -1,16 +1,5 @@
-# ohrana_truda
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Проект под web был написан на flutter 
+Благодаря чему его код можно использовать по android/ios 
+Добавив адаптивку и другую работу с файлами(в зависимости от OS )
+Чтобы сбилдить проект нужно прочитать эту статью https://docs.flutter.dev/get-started/web
+После чего можно открыть index.html, где и будет находиться сайт
