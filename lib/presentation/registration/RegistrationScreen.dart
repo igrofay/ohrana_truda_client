@@ -84,7 +84,7 @@ class RegistrationScreen extends StatelessWidget {
                 'Зарегистрироваться',
                 color: Colors.white,
                 onTap: store.requestRegSession,
-              )
+              ),
             ],
           ),
         )),

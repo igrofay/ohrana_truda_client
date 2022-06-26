@@ -9,6 +9,6 @@ abstract class RegModule {
 
   @singleton
   Dio getDio() => Dio(BaseOptions(
-    baseUrl: ''
+    baseUrl: 'http://192.168.1.60:8080'
   ));
 }
