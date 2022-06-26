@@ -16,8 +16,9 @@ import '../domain/repository/authentication.dart' as _i8;
 import '../domain/repository/profile.dart' as _i10;
 import '../domain/repository/token.dart' as _i6;
 import '../domain/store/app/core_app.dart' as _i3;
-import '../domain/store/session/restore.dart' as _i12;
-import 'register_module.dart' as _i13; // ignore_for_file: unnecessary_lambdas
+import '../domain/store/session/registration.dart' as _i12;
+import '../domain/store/session/restore.dart' as _i13;
+import 'register_module.dart' as _i14; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -35,9 +36,13 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       () => _i9.AuthenticationRepositoryImpl(get<_i4.Dio>()));
   gh.factory<_i10.ProfileRepository>(() =>
       _i11.ProfileRepositoryImpl(get<_i4.Dio>(), get<_i6.TokenRepository>()));
-  gh.singleton<_i12.Restore>(
-      _i12.Restore(get<_i6.TokenRepository>(), get<_i3.CoreApp>()));
+  gh.factory<_i12.RegistrationStore>(() => _i12.RegistrationStore(
+      get<_i8.AuthenticationRepository>(),
+      get<_i6.TokenRepository>(),
+      get<_i3.CoreApp>()));
+  gh.singleton<_i13.Restore>(
+      _i13.Restore(get<_i6.TokenRepository>(), get<_i3.CoreApp>()));
   return get;
 }
 
-class _$RegModule extends _i13.RegModule {}
+class _$RegModule extends _i14.RegModule {}
