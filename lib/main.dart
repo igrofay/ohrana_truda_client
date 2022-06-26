@@ -1,16 +1,7 @@
-import 'package:file_picker_cross/file_picker_cross.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dropzone/flutter_dropzone.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ohrana_truda/presentation/login/LoginScreen.dart';
 import 'package:ohrana_truda/res/theme/colors.dart';
-import 'package:ohrana_truda/res/theme/consts.dart';
-import 'package:ohrana_truda/res/widgets/BodyContainer.dart';
-import 'package:ohrana_truda/res/widgets/CustomAppBar.dart';
-import 'package:ohrana_truda/res/widgets/CustomButton.dart';
-import 'package:ohrana_truda/res/widgets/CustomTextField.dart';
-
 import 'presentation/polzovatel/polzScreen.dart';
-import 'res/widgets/utils.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,7 +26,7 @@ class MyApp extends StatelessWidget {
               displayColor: Colors.white,
               decorationColor: Colors.white),
           scaffoldBackgroundColor: Colors.white),
-      home: MainScreen(),
+      home: LoginScreen(),
     );
   }
 }
