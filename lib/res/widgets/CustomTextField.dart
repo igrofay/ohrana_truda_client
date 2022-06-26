@@ -7,19 +7,23 @@ class CustomTextField extends StatelessWidget {
       this.height = 80,
       this.width,
       this.hintText,
-      this.stroke = false,
+      this.stroke = true,
       this.bottomMargin = 0.0,
       this.onChanged,
+      this.isError = false,
+      this.onFieldSubmitted,
       this.onEditingComplete})
       : super(key: key);
 
   late double height;
   late double? width;
   late String? hintText;
+  late bool isError;
   late bool stroke;
   late double bottomMargin;
   late Function(String)? onChanged;
   late Function()? onEditingComplete;
+  late Function(String)? onFieldSubmitted;
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +33,18 @@ class CustomTextField extends StatelessWidget {
       margin: EdgeInsets.only(bottom: bottomMargin),
       decoration: BoxDecoration(
         borderRadius: kDefauldborderRadius,
-        border: stroke ? Border.all(color: Colors.white12) : null,
+        border: isError
+            ? Border.all(color: Colors.redAccent)
+            : stroke
+                ? Border.all(color: Colors.white12)
+                : null,
         color: Color(0x2442486B),
       ),
       child: Center(
         child: TextFormField(
           onChanged: onChanged,
           textInputAction: TextInputAction.newline,
+          onFieldSubmitted: onFieldSubmitted,
           onEditingComplete: onEditingComplete,
           textAlign: TextAlign.center,
           minLines: 1,
