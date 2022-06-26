@@ -12,7 +12,7 @@ class TokenRepositoryImpl with TokenRepository{
 
 
   TokenRepositoryImpl(this.sp){
-    token = sp.getString(_keyRefToken)!;
+    token = sp.getString(_keyRefToken);
   }
 
   @override

@@ -66,17 +66,6 @@ mixin _$CoreApp on _CoreApp, Store {
   }
 
   @override
-  void acquaintance() {
-    final _$actionInfo =
-        _$_CoreAppActionController.startAction(name: '_CoreApp.acquaintance');
-    try {
-      return super.acquaintance();
-    } finally {
-      _$_CoreAppActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   void download() {
     final _$actionInfo =
         _$_CoreAppActionController.startAction(name: '_CoreApp.download');

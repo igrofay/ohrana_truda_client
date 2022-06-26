@@ -8,7 +8,7 @@ part 'core_app.g.dart';
 @singleton
 class CoreApp = _CoreApp with _$CoreApp;
 
-enum StateApp { authorized, rejected, launch, firstTime }
+enum StateApp { authorized, rejected, launch }
 
 abstract class _CoreApp with Store {
   _CoreApp() {
@@ -39,9 +39,6 @@ abstract class _CoreApp with Store {
 
   @action
   void connection() => stateApp = StateApp.authorized;
-
-  @action
-  void acquaintance() => stateApp = StateApp.firstTime;
 
   @action
   void download() => stateApp = StateApp.launch;

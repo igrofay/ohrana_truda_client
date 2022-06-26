@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ohrana_truda/res/theme/colors.dart';
 import 'package:ohrana_truda/res/theme/consts.dart';
 import 'package:ohrana_truda/res/widgets/CustomButton.dart';
@@ -41,18 +42,26 @@ class RegistrationScreen extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     fontSize: 40),
               ),
-              const AutoSizeText(
-                'Или войдите в аккаунт!',
-                maxLines: 1,
-                style: TextStyle(
-                    decoration: TextDecoration.underline,
-                    decorationThickness: 0.2,
-                    color: Colors.white54,
-                    fontWeight: FontWeight.w100,
-                    fontSize: 18),
+              GestureDetector(
+                onTap: ()=>GoRouter.of(context).go('/loginScreen'),
+                child: const AutoSizeText(
+                  'Или войдите в аккаунт!',
+                  maxLines: 1,
+                  style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      decorationThickness: 0.2,
+                      color: Colors.white54,
+                      fontWeight: FontWeight.w100,
+                      fontSize: 18),
+                ),
               ),
               const SizedBox(
                 height: kDefaultPadding * 1.5,
+              ),
+              CustomTextField(
+                hintText: 'ИНН',
+                height: 50,
+                bottomMargin: kDefaultPadding / 2,
               ),
               CustomTextField(
                 hintText: 'Логин',

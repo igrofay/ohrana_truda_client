@@ -1,7 +1,5 @@
 
 import 'package:injectable/injectable.dart';
-
-import '../../repository/authentication.dart';
 import '../../repository/token.dart';
 import '../app/core_app.dart';
 
@@ -14,9 +12,7 @@ class Restore{
     requestSessionRaising();
   }
   Future<void>  requestSessionRaising() async {
-    if (_tokenRepository.getToken() == null) {
-      _coreApp.acquaintance();
-    }else if (_tokenRepository.getToken() == '') {
+    if (_tokenRepository.getToken() == null || _tokenRepository.getToken() == '') {
       _coreApp.disconnect();
     }else if(_tokenRepository.getToken() != ''){
       _coreApp.connection();
