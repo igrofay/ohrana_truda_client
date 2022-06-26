@@ -1,11 +1,16 @@
+import 'package:file_picker_cross/file_picker_cross.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ohrana_truda/res/theme/colors.dart';
 import 'package:ohrana_truda/res/theme/consts.dart';
 import 'package:ohrana_truda/res/widgets/BodyContainer.dart';
+import 'package:ohrana_truda/res/widgets/CustomAppBar.dart';
 import 'package:ohrana_truda/res/widgets/CustomButton.dart';
 import 'package:ohrana_truda/res/widgets/CustomTextField.dart';
+import 'package:ohrana_truda/res/widgets/admin.dart';
+
+import 'res/widgets/utils.dart';
 
 import 'depen_inject/location.dart';
 
@@ -34,7 +39,7 @@ class MyApp extends StatelessWidget {
               displayColor: Colors.white,
               decorationColor: Colors.white),
           scaffoldBackgroundColor: Colors.white),
-      home: MainScreen(),
+      home: AdminScreen(),
     );
   }
 }
@@ -49,7 +54,7 @@ class MainScreen extends StatelessWidget {
         children: [
           AppBarBackground(),
           BodyBackground(),
-          CustomAppBar(),
+          CustomAppBar(['Орагнизация', 'Тепловая карта', 'Личный кабинет']),
           Positioned(
             top: kAppBarHeight,
             left: 0,
@@ -290,11 +295,56 @@ class DropZone extends StatefulWidget {
 }
 
 class _DropZoneState extends State<DropZone> {
+  final GlobalKey exportKey = GlobalKey();
+  FilePickerCross? filePickerCross;
+
+  String _fileString = '';
+  Set<String?>? lastFiles;
+  FileQuotaCross quota = FileQuotaCross(quota: 0, usage: 0);
+
   late DropzoneViewController controller1;
   late DropzoneViewController controller2;
   String message1 = 'Добавь архив документов';
   String message2 = 'Drop something here';
   bool highlighted1 = false;
+
+  late Object? uploadedImage;
+
+  @override
+  void initState() {
+    FilePickerCross.listInternalFiles()
+        .then((value) => setState(() => lastFiles = value.toSet()));
+    FilePickerCross.quota().then((value) => setState(() => quota = value));
+    super.initState();
+  }
+
+  setFilePicker(FilePickerCross filePicker) => setState(() {
+        filePickerCross = filePicker;
+        filePickerCross!.saveToPath(path: filePickerCross!.fileName!);
+        FilePickerCross.quota().then((value) {
+          setState(() => quota = value);
+        });
+        lastFiles!.add(filePickerCross!.fileName);
+        try {
+          _fileString = filePickerCross.toString();
+        } catch (e) {
+          _fileString = 'Not a text file. Showing base64.\n\n' +
+              filePickerCross!.toBase64();
+        }
+      });
+
+  void _selectFile(context) {
+    FilePickerCross.importMultipleFromStorage().then((filePicker) {
+      setFilePicker(filePicker[0]);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('You selected ${filePicker.length} file(s).'),
+        ),
+      );
+
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -359,159 +409,12 @@ class _DropZoneState extends State<DropZone> {
               },
             ),
           ),
+          Positioned.fill(
+              child: GestureDetector(
+            onTap: () => _selectFile(context),
+          ))
         ],
       ),
     );
   }
-}
-
-class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      top: 0,
-      left: 0,
-      right: 0,
-      height: kAppBarHeight,
-      child: Container(
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(bottomRight: Radius.circular(48))),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              constraints: BoxConstraints(maxWidth: 1600),
-              width: MediaQuery.of(context).size.width - 200,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                          child: SvgPicture.asset(
-                        'assets/logo.svg',
-                        height: 50,
-                      )),
-                      SizedBox(
-                        width: 6,
-                      ),
-                      Text(
-                        'Охрана\nтруда',
-                        style: TextStyle(
-                            color: backgroundBlue, fontWeight: FontWeight.w600),
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      AppBarNavText('Сотрудники'),
-                      SizedBox(
-                        width: kDefaultPadding * 2,
-                      ),
-                      AppBarNavText('Анкета'),
-                      SizedBox(
-                        width: kDefaultPadding * 2,
-                      ),
-                      AppBarNavText('Личный кабинет'),
-                    ],
-                  ),
-                  Text(
-                    'Фамилия Имя Отчество',
-                    style: TextStyle(
-                        color: backgroundBlue,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class AppBarNavText extends StatefulWidget {
-  AppBarNavText(
-    this.text, {
-    Key? key,
-  }) : super(key: key);
-
-  late String text;
-
-  @override
-  State<AppBarNavText> createState() => _AppBarNavTextState();
-}
-
-class _AppBarNavTextState extends State<AppBarNavText> {
-  double _indicatorWidth = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: MouseCursor.defer,
-      onEnter: (event) => setState(() {
-        _indicatorWidth = 40;
-      }),
-      onExit: (event) => setState(() {
-        _indicatorWidth = 0;
-      }),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            widget.text,
-            style: TextStyle(
-                color: backgroundBlue,
-                fontWeight: FontWeight.w500,
-                fontSize: 16),
-          ),
-          SizedBox(
-            height: 1,
-          ),
-          AnimatedContainer(
-            height: 1,
-            width: _indicatorWidth,
-            color: backgroundBlue,
-            duration: const Duration(milliseconds: 300),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-Widget AppBarBackground() {
-  return Positioned(
-    top: 0,
-    left: 0,
-    right: 0,
-    height: kAppBarHeight,
-    child: Container(
-      color: backgroundBlue,
-    ),
-  );
-}
-
-Widget BodyBackground() {
-  return Positioned(
-    top: kAppBarHeight,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    child: Container(
-      color: Colors.white,
-    ),
-  );
 }
