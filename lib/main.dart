@@ -1,19 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ohrana_truda/presentation/login/LoginScreen.dart';
 import 'package:ohrana_truda/res/theme/colors.dart';
 import 'presentation/polzovatel/polzScreen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+
+  final GoRouter _router = GoRouter(
+    routes: <GoRoute>[
+      GoRoute(
+        path: '/',
+        builder: (BuildContext context, GoRouterState state) =>
+            const MainScreen(),
+      ),
+      GoRoute(
+        path: '/main',
+        builder: (BuildContext context, GoRouterState state) =>
+            const MainScreen(),
+      ),
+    ],
+  );
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Flutter Demo',
+      routeInformationParser: _router.routeInformationParser,
+      routerDelegate: _router.routerDelegate,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           fontFamily: 'Montserrat',
@@ -26,7 +44,6 @@ class MyApp extends StatelessWidget {
               displayColor: Colors.white,
               decorationColor: Colors.white),
           scaffoldBackgroundColor: Colors.white),
-      home: LoginScreen(),
     );
   }
 }

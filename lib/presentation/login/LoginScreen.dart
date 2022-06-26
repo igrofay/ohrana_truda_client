@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ohrana_truda/presentation/polzovatel/polzScreen.dart';
 import 'package:ohrana_truda/res/theme/colors.dart';
 import 'package:ohrana_truda/res/theme/consts.dart';
 import 'package:ohrana_truda/res/widgets/CustomButton.dart';
@@ -67,6 +68,7 @@ class LoginScreen extends StatelessWidget {
               CustomButton(
                 'Логин',
                 color: Colors.white,
+                onTap: () {},
               )
             ],
           ),
