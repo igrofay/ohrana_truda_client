@@ -1,32 +1,41 @@
-import 'package:file_picker_cross/file_picker_cross.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dropzone/flutter_dropzone.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:ohrana_truda/presentation/login/LoginScreen.dart';
 import 'package:ohrana_truda/res/theme/colors.dart';
-import 'package:ohrana_truda/res/theme/consts.dart';
-import 'package:ohrana_truda/res/widgets/BodyContainer.dart';
-import 'package:ohrana_truda/res/widgets/CustomAppBar.dart';
-import 'package:ohrana_truda/res/widgets/CustomButton.dart';
-import 'package:ohrana_truda/res/widgets/CustomTextField.dart';
-
 import 'presentation/polzovatel/polzScreen.dart';
-import 'res/widgets/utils.dart';
 
 import 'depen_inject/location.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureDependencies();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+
+  final GoRouter _router = GoRouter(
+    routes: <GoRoute>[
+      GoRoute(
+        path: '/',
+        builder: (BuildContext context, GoRouterState state) =>
+            const MainScreen(),
+      ),
+      GoRoute(
+        path: '/main',
+        builder: (BuildContext context, GoRouterState state) =>
+            const MainScreen(),
+      ),
+    ],
+  );
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Flutter Demo',
+      routeInformationParser: _router.routeInformationParser,
+      routerDelegate: _router.routerDelegate,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           fontFamily: 'Montserrat',
@@ -39,7 +48,6 @@ class MyApp extends StatelessWidget {
               displayColor: Colors.white,
               decorationColor: Colors.white),
           scaffoldBackgroundColor: Colors.white),
-      home: MainScreen(),
     );
   }
 }
