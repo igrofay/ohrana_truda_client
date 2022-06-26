@@ -1,4 +1,5 @@
 
+import 'package:injectable/injectable.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../repository/authentication.dart';
@@ -9,6 +10,7 @@ import '../app/core_app.dart';
 
 part 'registration.g.dart';
 
+@injectable
 class RegistrationStore = _RegistrationStore with _$RegistrationStore;
 
 abstract class _RegistrationStore with Store{
